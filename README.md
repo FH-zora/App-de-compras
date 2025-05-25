@@ -8,4 +8,5 @@ en la parte del frontend se usara react.js usando vite con alguna libreria de co
 se devera clonar este repo al otro pc con el fin de adelantar el trabajo y cada cambio
 se hara push al repositorio de github
 
-este es un poryecto de prueba
+
+Este readme se modifico desde la laptop agregando el archivo .txt llamado test en la raiz del proyecto .
