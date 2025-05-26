@@ -5,8 +5,16 @@ const PedidoSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId, //hace referencia al id
       ref: "ProductosDeCompra",
+      required: true
     },
   ],
   Total: Number,
+  Perfil: [
+    {
+     type: mongoose.Schema.Types.ObjectId, 
+      ref: "perfil",
+      required: true,
+    },
+  ],
 });
 module.exports = mongoose.model("pedidoDeCompras", PedidoSchema);

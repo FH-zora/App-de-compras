@@ -1,37 +1,19 @@
+import { useEffect } from "react";
 import "./App.css";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Productos } from "./Productos";
+// import 'rsuite/dist/rsuite.min.css';
 import { CrearPerfil } from "./CrearPerfil";
 import { PerfilesActivos } from "./PerfilesActivos";
+import { Text } from 'rsuite';
+import { LlamadaProductos } from "./Productos/LlamadaProductos";
 
 function App() {
-  const [productosDeCompras, setProductosDeCompras] = useState([]);
-  const llamadaDeProductos = async () => {
-    try {
-      const res = await axios.get(
-        "http://localhost:3000/perfiles/compras/productos"
-      );
-      console.log("Productos totales", res.data);
-      setProductosDeCompras(res.data);
-    } catch (error) {
-      console.error(
-        "no se pudo llamar los productos del backend",
-        error.message
-      );
-    }
-  };
 
-  useEffect(() => {
-    llamadaDeProductos();
-  }, []);
 
+  
   return (
     <>
-      <h4>Perfiles </h4>
+      <Text color="orange" weight="extrabold" size="2rem" align="center">Perfiles</Text>
       <PerfilesActivos />
-      <h1> productos</h1>
-      <Productos productosDeCompras={productosDeCompras} />
       <CrearPerfil />
     </>
   );

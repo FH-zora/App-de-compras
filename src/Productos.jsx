@@ -1,8 +1,9 @@
-export const Productos = ({ productosDeCompras }) => {
+export const Productos = ({ productos }) => {
+  
   return (
     <div>
       <ul>
-        {productosDeCompras.map((res) => (
+        {productos.map((res) => (
           <li key={res._id}>
             {res.Nombre} - {res.Precio} - {res.Cantidad}
           </li>
