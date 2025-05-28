@@ -15,6 +15,10 @@ function App() {
       <Text color="orange" weight="extrabold" size="2rem" align="center">Perfiles</Text>
       <PerfilesActivos />
       <CrearPerfil />
+      {/* texto descriptivo */}
+      <div style={{margin:20}}>
+        <Text size="2rem"weight="medium" color="blue"> Crea tu Perfil y gestiona tu propio pedido de compras como tu quieras.</Text>
+      </div>
     </>
   );
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
-
+import { Button, Input, Text } from "rsuite";
+import AddOutlineIcon from '@rsuite/icons/AddOutline';
 export const CrearPerfil = () => {
   const [perfil, setPerfil] = useState("");
 
@@ -26,22 +27,24 @@ export const CrearPerfil = () => {
 
   return (
     <div>
-      <h3>CrearPerfil</h3>
+      <Text  weight="extrabold" size="2rem" align="center">Crear Perfil</Text>
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="Nombre">Nombre</label>
+          {/* <label htmlFor="Nombre">Nombre</label> */}
           <br />
-          <input
+          <Input
+          size="lg"
             type="text"
             placeholder="Nombre del nuevo perfil"
             value={perfil}
             onChange={(e) => setPerfil(e.target.value)}
+            style={{display:"flex", justifySelf:"center", width:300,margin:10}}
           />
-          <button type="submit">
-            Crear Perfil
-          </button>
         </div>
+          <Button size="lg" startIcon={ <AddOutlineIcon/>} appearance="primary" color="green" type="submit">
+            Crear Perfil
+          </Button>
       </form>
     </div>
   );

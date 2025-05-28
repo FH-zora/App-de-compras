@@ -2,12 +2,18 @@ const mongoose = require("mongoose");
 const PedidoSchema = new mongoose.Schema({
   Fecha: { type: Date, default: Date.now },
   Productos: [
-    {
-      type: mongoose.Schema.Types.ObjectId, //hace referencia al id
+  {
+    producto: {
+      type: mongoose.Schema.Types.ObjectId,
       ref: "ProductosDeCompra",
       required: true
     },
-  ],
+    cantidad: {
+      type: Number,
+      required: true
+    }
+  }
+],
   Total: Number,
   Perfil: [
     {

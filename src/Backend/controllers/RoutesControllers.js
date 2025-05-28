@@ -77,25 +77,59 @@ const agregarPedidoAPerfil = async (req, res) => {
     if (!perfilExistente) {
       return res.status(404).json({ error: "Perfil no existe" });
     }
-    const { Productos, Total } = req.body;
 
+    const { Productos } = req.body;
     if (!Productos || Productos.length === 0) {
       return res.status(400).json({ error: "No se han enviado productos" });
     }
-    //* crear el nuevo pedido
+
+    let Total = 0;
+    const CantidadDeProducoOrdenado = [];
+
+    for (const item of Productos) {
+      const ProductoStock = await ProductosDeCompra.findById(item.producto);
+
+      if (!ProductoStock) {
+        return res.status(404).json({ error: "Producto no encontrado" });
+      }
+
+      if (item.cantidad <= 0 || item.cantidad > ProductoStock.Cantidad) {
+        return res.status(400).json({
+          error: "El pedido no se puede realizar, No hay stock suficiente",
+        });
+      }
+
+      // ✅ Estas líneas estaban FUERA del for, pero deben estar ADENTRO
+      Total += ProductoStock.Precio * item.cantidad;
+
+      CantidadDeProducoOrdenado.push({
+        producto: ProductoStock._id,
+        cantidad: item.cantidad,
+      });
+
+      ProductoStock.Cantidad -= item.cantidad;
+      await ProductoStock.save();
+    }
+
     const nuevoPedido = new pedidoDeCompras({
-      Productos,
+      Productos: CantidadDeProducoOrdenado,
       Total,
       Perfil: [req.params.id],
     });
+
     await nuevoPedido.save();
+
     perfilExistente.pedidos.push(nuevoPedido._id);
     await perfilExistente.save();
+
     res.status(200).json(perfilExistente);
   } catch (error) {
+    console.error("❌ Error al crear pedido:", error);
     res.status(400).json({ error: error.message });
   }
 };
+
+
 module.exports = {
   agregarPedidoAPerfil,
   nuevoPerfil,
